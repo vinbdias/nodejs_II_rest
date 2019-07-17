@@ -1,0 +1,21 @@
+{
+  "name": "casadocodigorestapi",
+  "version": "1.0.0",
+  "description": "Livraria Casa do Código REST API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js --ignore *.marko.js"
+  },
+  "author": "Vinícius Dias",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "express": "4.16.3",
+    "express-validator": "5.3.1",
+    "sqlite3": "4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.4"
+  }
+}
