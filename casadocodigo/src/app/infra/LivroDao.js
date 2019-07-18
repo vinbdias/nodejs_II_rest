@@ -19,14 +19,12 @@ class LivroDao {
                     livro.preco,
                     livro.descricao
                 ],
-                error => {
+                function(error) {
                     if (error) {
 
                         console.log(error);
                         return reject('Não foi possível adicionar o livro.');
                     }
-
-                    livro.id = this.lastID;
 
                     return resolve(livro);
                 }

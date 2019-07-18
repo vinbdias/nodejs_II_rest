@@ -3,11 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-app.use('/static', express.static('src/app/public'));
-
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 app.use((request, response, next) => {
 
@@ -21,11 +17,15 @@ routes(app);
 app.use((request, response, next) => 
     response.status(404)
         .json({ erro: 'Not found' })
+        .end()
 );
 
-app.use((error, request, response, next) => 
+app.use((error, request, response, next) => {
+    console.log(request.body);
     response.status(500)
         .json({ erro: 'Internal server error' })
+        .end()
+    }
 );
 
 module.exports = app;

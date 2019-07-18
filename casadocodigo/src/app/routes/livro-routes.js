@@ -8,11 +8,13 @@ module.exports = app => {
     const livroRoutes = LivroController.routes();
 
     app.route(livroRoutes.livros)
-        .get(livroController.lista())
-        .post(Livro.validacoes(), livroController.save());        
+        .get(livroController.lista());
+
+    app.route(livroRoutes.newLivro)
+        .post(Livro.validacoes(), livroController.save());
 
     app.route(livroRoutes.livro)
-        .delete(livroController.delete())
+        .get(livroController.detail())
         .put(livroController.edit())
-        .get(livroController.detail());
+        .delete(livroController.delete());
 };

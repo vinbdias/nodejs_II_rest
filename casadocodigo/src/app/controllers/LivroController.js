@@ -9,8 +9,9 @@ class LivroController {
     static routes() {
 
         return {            
-            livros: '/livros',
-            livro: '/livros/:id'            
+            livros: '/livros',  
+            newLivro: '/livro',          
+            livro: '/livro/:id'            
         };
     }
 
@@ -21,37 +22,35 @@ class LivroController {
 
             const livroDao = new LivroDao(db);
             livroDao.lista()
-                .then(livros => response.status(200).json(livros))
+                .then(livros => response.status(200).json(livros).end())
                 .catch(error => console.log(error));
         };
     }
 
     save() {
 
-        return (request, response) => {      
+        return (request, response) => {       
             
-            const livroDao = new LivroDao(db);
-
-            const errors = validationResult(request);      
-            
-            console.log('entrou');
+            const errors = validationResult(request);
 
             if (!errors.isEmpty())
                 return response.status(400)
-                                .json(                    
-                                    {
-                                        livro: {
-                                            id: '',
-                                            titulo: request.body.titulo,
-                                            preco: request.body.preco,
-                                            descricao: request.body.descricao
-                                        },
-                                        validationErrors: errors.array()
-                                    }
-                                );
+                    .json(
+                        {
+                            livro: {
+                                id: '',
+                                titulo: request.body.titulo,
+                                preco: request.body.preco,
+                                descricao: request.body.descricao
+                            },
+                            validationErrors: errors.array()
+                        }
+                    ).end();            
+
+            const livroDao = new LivroDao(db);
 
             livroDao.adiciona(request.body)
-                .then(livro => response.status(201).json(livro))
+                .then(livro => response.status(201).json(livro).end())
                 .catch(error => console.log(error));
         };
     }
@@ -63,7 +62,7 @@ class LivroController {
             const livroDao = new LivroDao(db);
 
             livroDao.atualiza(request.body)
-                .then(livro => response.status(200).json(livro))
+                .then(livro => response.status(200).json(livro).end())
                 .catch(error => console.log(error));
         };        
     }
@@ -89,7 +88,7 @@ class LivroController {
             const livroDao = new LivroDao(db);
 
             livroDao.buscaPorId(id)
-                .then(livro => response.status(200).json(livro))
+                .then(livro => response.status(200).json(livro).end())
                 .catch(error => console.log(error));
         };
     }    
