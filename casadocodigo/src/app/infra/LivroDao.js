@@ -26,6 +26,8 @@ class LivroDao {
                         return reject('Não foi possível adicionar o livro.');
                     }
 
+                    livro.id = this.lastID;
+
                     return resolve(livro);
                 }
             )
@@ -38,7 +40,7 @@ class LivroDao {
             
             this._db.all(
                 'SELECT * FROM livros',
-                (error, result) => {
+                (error, result) => { 
 
                     if (error) 
                         return reject('Não foi possível listar os livros.');
@@ -114,7 +116,7 @@ class LivroDao {
                     if (error)
                         return reject('Não foi possível remover o livro.');                    
 
-                    return resolve();
+                    return resolve({});
                 }
             );
         });
